@@ -20,8 +20,17 @@ class grid:
             self.pixels.append([])
             for y in range(height):
                 self.pixels[x].append(pixel(x,y))
+
     def getPixel(self,x,y):
-        return self.pixels[x][y];
+        return self.pixels[x][y]
+
+    # def insertPixlRing(self,pixelRing,x,y):
+
+
+class neoPixelRing:
+    def __init__(self,pixelAmount,chainIndex):
+        self.pixelAmount = pixelAmount
+        self.chainIndex = chainIndex
 
 
 def create_led_grid(width,height):
