@@ -71,7 +71,10 @@ class neoPixelRing:
         b = self.pixelMask[pixel][1] - y
         v = (a*a) - (b*b);
         d = abs(sqrt(v))
-        return d
+
+        d1 = math.sqrt((self.pixelMask[pixel][0] - x) ** 2 + (self.pixelMask[pixel][1] - y) ** 2)
+        d1 = int(math.floor(float(d1) / (math.sqrt(2) * x) * 10))
+        return d1
 
     def getPixelChainPosition(self,pixel):
         return pixel + (self.chainOffset * self.pixelAmount)

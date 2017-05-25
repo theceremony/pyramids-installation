@@ -16,7 +16,7 @@ class standard:
     def __init__(self):
         self.analogInput = analogInput.AnalogInput()
         self.gradient = gradient.linear_gradient("#11aaff","#00ff00",7)
-        self.gradient2 = gradient.polylinear_gradient(["#003300","#11aaff","#003300"],8)
+        self.gradient2 = gradient.polylinear_gradient(["#003300","#11aaff","#ffffff"],8)
         print(self.gradient2)
         #print(self.gradient)
         #print self.gradient['b']
@@ -26,7 +26,7 @@ class standard:
         self.np_2 = grid.neoPixelRing(8,2)
 
         self.grid_14.insertPixelRing(self.np_0, 7, 0)
-        self.grid_14.insertPixelRing(self.np_1, 0, 12)
+        self.grid_14.insertPixelRing(self.np_1, 2, 12)
         self.grid_14.insertPixelRing(self.np_2, 12, 12)
 
         self.strip = Adafruit_NeoPixel(self.grid_14.getTotalPixels(), LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
@@ -40,11 +40,15 @@ class standard:
         for ring in self.grid_14.neoPixelrings:
             for i in range(ring.pixelAmount):
                 a = ring.getPixelChainPosition(i)
-                d = int(math.floor(ring.getActualPixelDistance(i,center_x,center_y))) % 7
+                d = int(math.floor(ring.getActualPixelDistance(i,center_x,center_y)))
+                if d > len(self.gradient2['r'])-1:
+                    d = len(self.gradient2['r'])-1
+
                 r = self.gradient2['r'][d]
                 g = self.gradient2['g'][d]
                 b = self.gradient2['b'][d]
                 self.strip.setPixelColor(a, Color(r,b,g))
+
                 #print d
         self.strip.show()
 

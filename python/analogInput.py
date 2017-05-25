@@ -37,7 +37,7 @@ class AnalogInput:
         self.y_pos = self.read_spi_data_channel(mcp3008_y_voltage_channel)
 
         self.angle = self.convert_coordinates_to_angle(self.x_pos,self.y_pos,self.center_x_pos,self.center_y_pos)
-        #print(angle)
+        #print(self.angle)
         xDif = self.x_pos-self.center_x_pos
         yDif = self.y_pos-self.center_y_pos
         self.xPercent = (xDif * 100) / (self.center_x_pos) * 0.01
