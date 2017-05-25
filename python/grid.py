@@ -6,8 +6,10 @@ class pixel:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
     def setPixelColor(self,color):
         self.color = color
+
     def setNeoPixelAlias(self,alias):
         self.pixelAlias = alias
 
@@ -26,10 +28,17 @@ class grid:
     # def getPixel(self,x,y):
     #     return self.pixels[x][y]
 
+    def getTotalPixels(self):
+        count = 0
+        for x in self.neoPixelrings:
+            count += x.pixelAmount
+
+        return count
+
     def getCenter(self):
         return [self.width / 2, self.height /2]
 
-    def insertPixlRing(self,pixelRing,x,y):
+    def insertPixelRing(self,pixelRing,x,y):
         self.neoPixelrings.append(pixelRing)
         # self.getPixel(x,y).setNeoPixelAlias(pixelRing.chainOffset + 0)
         pixelRing.setPixelActual(0, x,y)

@@ -1,5 +1,8 @@
 import gradient
 import grid
+import analogInput
+
+from neopixel import *
 
 if __name__ == '__main__':
     # print (gradient.linear_gradient("#0f0f0f","#000000"))
