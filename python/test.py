@@ -6,9 +6,9 @@ import sys
 from cmath import sqrt
 import math
 
-grid_width = 15
-grid_height = 15
-grid_drawing_mulitplier = 10
+grid_width = 200
+grid_height = 200
+grid_drawing_mulitplier = 2
 
 g = grid.create_led_grid(grid_width,grid_height)
 
@@ -22,7 +22,7 @@ g.insertPixelRing(np3,11,8)
 center = g.getCenter()
 
 outGradient = gradient.linear_gradient("#11aaff","#222222",10)
-outGradient2 = gradient.polylinear_gradient(["#000000","#000000","#11aaff","#000000"],10)
+outGradient2 = gradient.polylinear_gradient(["#000000","#ff0000","#11aaff","#000000"],10)
 
 pygame.init()
 background_colour = (255,255,255)
