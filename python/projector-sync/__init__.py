@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
 import pygame
 from pygame.locals import *
+
 import sys
+import os
 
 from cmath import sqrt
 import math
-
-
-# //////////////////////////////////////////////////////////////////////////////
-#grid_width = 200
-#grid_height = 200
-#grid_drawing_mulitplier = 2
-
-#pygame.init()
-#background_colour = (0,0,0)
-#(width, height) = (grid_width * grid_drawing_mulitplier, grid_height * grid_drawing_mulitplier)
-
-# //////////////////////////////////////////////////////////////////////////////
 
 
 (width, height) = (640,480)
@@ -27,6 +17,17 @@ class App:
         self.running = True
         self.screen = None
         self.fullscreen = False
+        self.lifted = None
+        self.image_library = {}
+
+    def get_image(self, path):
+        image = self.image_library.get(path)
+        if image is None:
+            canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
+            print(canonicalized_path)
+            image = pygame.image.load(canonicalized_path)
+            self.image_library[path] = image.convert()
+        return image
 
     def on_toggleFullscreen(self):
         if self.fullscreen:
@@ -34,7 +35,8 @@ class App:
             self.screen = pygame.display.set_mode((width, height), RESIZABLE)
         else:
             self.fullscreen = True
-            self.screen = pygame.display.set_mode((width, height), FULLSCREEN)
+            modes = pygame.display.list_modes()
+            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
 
     def on_init(self):
         pygame.init()
@@ -55,6 +57,9 @@ class App:
 
     def on_render(self):
         pygame.display.flip()
+        #pygame.display.blit(self.get_image('./img/lifted.png'),20,20)
+
+        self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
 
     def on_cleanup(self):
         pygame.quit()
@@ -69,6 +74,7 @@ class App:
             self.on_loop()
             self.on_render()
         self.on_cleanup()
+
 # /////////////////////////////////////////////////////////////////////////////
 if __name__ == '__main__':
 
