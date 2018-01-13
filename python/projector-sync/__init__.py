@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
 import pygame
 from pygame.locals import *
-
 from GIFImage import GIFImage
 
-import sys
-import os
-
-from cmath import sqrt
-
-
-(width, height) = (640,480)
+(width, height) = (1024,768)
 
 class App:
 
@@ -52,10 +46,8 @@ class App:
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
         modes = pygame.display.list_modes()
-        self.gif =  GIFImage("img/pyramids gifs/weird/normal.gif")
+        self.gif =  GIFImage("img/pyramids gifs/weird/colors.gif")
         self.gif.scale_image(modes[0])
-        #self.gif.scale_image()
-        #self.gif2 = GIFImage("img/pyramids gifs/flowers/2.gif")
 
 
     def on_event(self, event):
@@ -80,6 +72,9 @@ class App:
         #self.screen.blit(self.get_image('img/pyramids gifs/flowers/1.gif'), (self.cat_pos_x,self.cat_pos_y) )
         #self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
 
+        color = self.screen.get_at( (200,200) )
+
+        print(color)
 
     def on_cleanup(self):
         pygame.quit()
