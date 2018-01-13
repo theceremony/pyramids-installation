@@ -52,7 +52,7 @@ class App:
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
         modes = pygame.display.list_modes()
-        self.gif =  GIFImage("img/pyramids gifs/flowers/4.gif")
+        self.gif =  GIFImage("img/pyramids gifs/weird/normal.gif")
         self.gif.scale_image(modes[0])
         #self.gif.scale_image()
         #self.gif2 = GIFImage("img/pyramids gifs/flowers/2.gif")
