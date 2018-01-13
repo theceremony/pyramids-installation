@@ -7,6 +7,7 @@ import os
 
 from cmath import sqrt
 import math
+import GIFImage
 
 
 (width, height) = (640,480)
@@ -16,31 +17,39 @@ class App:
     def __init__(self):
         self.running = True
         self.screen = None
-        self.fullscreen = False
+        self.fullscreen = True
         self.lifted = None
         self.image_library = {}
+        self.cat_pos_x = 0
+        self.cat_pos_y = 0
 
     def get_image(self, path):
         image = self.image_library.get(path)
         if image is None:
             canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
-            print(canonicalized_path)
             image = pygame.image.load(canonicalized_path)
             self.image_library[path] = image.convert()
         return image
 
+    def on_setScreenSize(self):
+        if self.fullscreen:
+            modes = pygame.display.list_modes()
+            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
+        else:
+            self.screen = pygame.display.set_mode((width, height), RESIZABLE)
+
     def on_toggleFullscreen(self):
         if self.fullscreen:
             self.fullscreen = False
-            self.screen = pygame.display.set_mode((width, height), RESIZABLE)
         else:
             self.fullscreen = True
-            modes = pygame.display.list_modes()
-            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
+
+        self.on_setScreenSize()
 
     def on_init(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+        self.on_setScreenSize()
+        pygame.mouse.set_visible(False)
 
     def on_event(self, event):
         if event.type == pygame.KEYUP:
@@ -53,13 +62,15 @@ class App:
             self.running = False
 
     def on_loop(self):
-        pass
+        self.cat_pos_x += 4
+        self.cat_pos_y += 1
 
     def on_render(self):
         pygame.display.flip()
-        #pygame.display.blit(self.get_image('./img/lifted.png'),20,20)
 
         self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
+        self.screen.blit(self.get_image('img/cat.jpg'), (self.cat_pos_x,self.cat_pos_y) )
+        self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
 
     def on_cleanup(self):
         pygame.quit()
