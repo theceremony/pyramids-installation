@@ -24,6 +24,11 @@ class GIFImage(object):
     def get_rect(self):
         return pygame.rect.Rect((0,0), self.image.size)
 
+    def scale_image(self, newsize):
+        for pi in self.frames:
+            pi[0] = pygame.transform.scale(pi[0],newsize )
+            #pi[0] = pygame.transform.scale2x(pi[0])
+
     def get_frames(self):
         image = self.image
 

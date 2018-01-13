@@ -35,7 +35,7 @@ class App:
     def on_setScreenSize(self):
         if self.fullscreen:
             modes = pygame.display.list_modes()
-            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
+            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF,8)
         else:
             self.screen = pygame.display.set_mode((width, height), RESIZABLE)
 
@@ -51,7 +51,11 @@ class App:
         pygame.init()
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
-        self.gif = GIFImage("img/pyramids gifs/flowers/1.gif")
+        modes = pygame.display.list_modes()
+        self.gif =  GIFImage("img/pyramids gifs/flowers/4.gif")
+        self.gif.scale_image(modes[0])
+        #self.gif.scale_image()
+        #self.gif2 = GIFImage("img/pyramids gifs/flowers/2.gif")
 
 
     def on_event(self, event):
@@ -70,7 +74,8 @@ class App:
 
     def on_render(self):
         pygame.display.flip()
-        self.gif.render(self.screen, (50, 0))
+        self.gif.render(self.screen, (0, 0))
+        #self.gif2.render(self.screen, (250, 250))
         #self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
         #self.screen.blit(self.get_image('img/pyramids gifs/flowers/1.gif'), (self.cat_pos_x,self.cat_pos_y) )
         #self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
