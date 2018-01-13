@@ -3,6 +3,7 @@ import os
 import pygame
 from pygame.locals import *
 from GIFImage import GIFImage
+from GIFMode import GIFMode
 
 (width, height) = (1024,768)
 
@@ -17,6 +18,8 @@ class App:
         self.cat_pos_x = 0
         self.cat_pos_y = 0
         self.gif = None
+
+        self.GIFMode = None
 
     def get_image(self, path):
         image = self.image_library.get(path)
@@ -33,6 +36,7 @@ class App:
         else:
             self.screen = pygame.display.set_mode((width, height), RESIZABLE)
 
+
     def on_toggleFullscreen(self):
         if self.fullscreen:
             self.fullscreen = False
@@ -45,9 +49,10 @@ class App:
         pygame.init()
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
-        modes = pygame.display.list_modes()
-        self.gif =  GIFImage("img/pyramids gifs/weird/colors.gif")
-        self.gif.scale_image(modes[0])
+        self.GIFmode = GIFMode()
+        #modes = pygame.display.list_modes()
+        #self.gif =  GIFImage("img/pyramids gifs/weird/colors.gif")
+        #self.gif.scale_image(modes[0])
 
 
     def on_event(self, event):
@@ -66,15 +71,15 @@ class App:
 
     def on_render(self):
         pygame.display.flip()
-        self.gif.render(self.screen, (0, 0))
+        #self.gif.render(self.screen, (0, 0))
         #self.gif2.render(self.screen, (250, 250))
         #self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
         #self.screen.blit(self.get_image('img/pyramids gifs/flowers/1.gif'), (self.cat_pos_x,self.cat_pos_y) )
         #self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
 
-        color = self.screen.get_at( (200,200) )
+        #color = self.screen.get_at( (200,200) )
 
-        print(color)
+        #print(color)
 
     def on_cleanup(self):
         pygame.quit()
