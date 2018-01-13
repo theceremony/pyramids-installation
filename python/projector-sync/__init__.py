@@ -2,12 +2,12 @@
 import pygame
 from pygame.locals import *
 
+from GIFImage import GIFImage
+
 import sys
 import os
 
 from cmath import sqrt
-import math
-import GIFImage
 
 
 (width, height) = (640,480)
@@ -17,11 +17,12 @@ class App:
     def __init__(self):
         self.running = True
         self.screen = None
-        self.fullscreen = True
+        self.fullscreen = False
         self.lifted = None
         self.image_library = {}
         self.cat_pos_x = 0
         self.cat_pos_y = 0
+        self.gif = None
 
     def get_image(self, path):
         image = self.image_library.get(path)
@@ -50,6 +51,8 @@ class App:
         pygame.init()
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
+        self.gif = GIFImage("img/pyramids gifs/flowers/1.gif")
+
 
     def on_event(self, event):
         if event.type == pygame.KEYUP:
@@ -67,10 +70,11 @@ class App:
 
     def on_render(self):
         pygame.display.flip()
+        self.gif.render(self.screen, (50, 0))
+        #self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
+        #self.screen.blit(self.get_image('img/pyramids gifs/flowers/1.gif'), (self.cat_pos_x,self.cat_pos_y) )
+        #self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
 
-        self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
-        self.screen.blit(self.get_image('img/cat.jpg'), (self.cat_pos_x,self.cat_pos_y) )
-        self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
 
     def on_cleanup(self):
         pygame.quit()

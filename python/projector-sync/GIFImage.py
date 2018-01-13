@@ -1,6 +1,6 @@
 """GIFImage by Matthew Roe"""
 
-import Image
+from PIL import Image
 import pygame
 from pygame.locals import *
 
@@ -17,7 +17,7 @@ class GIFImage(object):
         self.ptime = time.time()
 
         self.running = True
-        self.breakpoint = len(self.frames)-1
+        self.breakpoint = len(self.frames) - 1
         self.startpoint = 0
         self.reversed = False
 
