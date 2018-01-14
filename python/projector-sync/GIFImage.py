@@ -18,17 +18,6 @@ class GIFImage(object):
         self.frames = []
         self.get_frames()
 
-
-        #self.q = Queue()
-        #self.t = Thread(target=self.get_frames)
-        #self.t.daemon = True
-        #self.t.start()
-
-        #while self.q.full():
-            #self.q.get()
-
-        #self.t.join(self)
-
         self.cur = 0
         self.ptime = time.time()
 

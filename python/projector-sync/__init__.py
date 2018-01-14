@@ -4,6 +4,7 @@ import pygame
 from pygame.locals import *
 from GIFImage import GIFImage
 from GIFMode import GIFMode
+from GradientMode import GradientMode
 
 (width, height) = (640,480)
 
@@ -20,6 +21,7 @@ class App:
         self.gif = None
 
         self.GIFMode = None
+        self.GradientMode = None
 
     def get_image(self, path):
         image = self.image_library.get(path)
@@ -33,13 +35,11 @@ class App:
         if self.fullscreen:
             modes = pygame.display.list_modes()
             self.screen = pygame.display.set_mode(modes[0], FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF)
-            #self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
         else:
-
             self.screen = pygame.display.set_mode((width,height), RESIZABLE)
 
         self.GIFmode.surface = self.screen
-
+        self.GradientMode.surface = self.screen
 
     def on_toggleFullscreen(self):
         if self.fullscreen:
@@ -52,10 +52,10 @@ class App:
     def on_init(self):
         pygame.init()
         self.GIFmode = GIFMode()
-        #self.GIFmode.isActive = False
+        self.GIFmode.isActive = False
+        self.GradientMode = GradientMode()
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
-
 
         #modes = pygame.display.list_modes()
         #self.gif =  GIFImage("img/pyramids gifs/weird/boxy.gif")
@@ -73,12 +73,10 @@ class App:
 
     def on_loop(self):
         self.GIFmode.run()
+        self.GradientMode.run()
 
     def on_render(self):
         pygame.display.flip()
-        #self.gif.render(self.screen,(0,0))
-
-
 
     def on_cleanup(self):
         pygame.quit()
