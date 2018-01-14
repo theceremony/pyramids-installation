@@ -8,6 +8,7 @@ import time
 
 class GIFImage(object):
     def __init__(self, filename):
+        self.loaded = False
         self.filename = filename
         self.image = Image.open(filename)
         self.frames = []
@@ -20,6 +21,7 @@ class GIFImage(object):
         self.breakpoint = len(self.frames) - 1
         self.startpoint = 0
         self.reversed = False
+
 
     def get_rect(self):
         return pygame.rect.Rect((0,0), self.image.size)
@@ -102,7 +104,9 @@ class GIFImage(object):
                 self.frames.append([pi2, duration])
                 image.seek(image.tell()+1)
         except EOFError:
-            pass
+            self.loaded = True
+            print('DONE LOADING BRO')
+
 
     def render(self, screen, pos):
         if self.running:

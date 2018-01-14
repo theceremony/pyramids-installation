@@ -5,7 +5,7 @@ from pygame.locals import *
 from GIFImage import GIFImage
 from GIFMode import GIFMode
 
-(width, height) = (1024,768)
+(width, height) = (640,480)
 
 class App:
 
@@ -50,10 +50,12 @@ class App:
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
         self.GIFmode = GIFMode()
+
+
+
         #modes = pygame.display.list_modes()
         #self.gif =  GIFImage("img/pyramids gifs/weird/colors.gif")
         #self.gif.scale_image(modes[0])
-
 
     def on_event(self, event):
         if event.type == pygame.KEYUP:
@@ -70,6 +72,7 @@ class App:
         self.cat_pos_y += 1
 
     def on_render(self):
+        self.GIFmode.run()
         pygame.display.flip()
         #self.gif.render(self.screen, (0, 0))
         #self.gif2.render(self.screen, (250, 250))
