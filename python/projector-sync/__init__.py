@@ -32,9 +32,13 @@ class App:
     def on_setScreenSize(self):
         if self.fullscreen:
             modes = pygame.display.list_modes()
-            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF,8)
+            self.screen = pygame.display.set_mode(modes[0], FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF)
+            #self.screen = pygame.display.set_mode(modes[0], FULLSCREEN)
         else:
-            self.screen = pygame.display.set_mode((width, height), RESIZABLE)
+
+            self.screen = pygame.display.set_mode((width,height), RESIZABLE)
+
+        self.GIFmode.surface = self.screen
 
 
     def on_toggleFullscreen(self):
@@ -47,14 +51,14 @@ class App:
 
     def on_init(self):
         pygame.init()
+        self.GIFmode = GIFMode()
+        #self.GIFmode.isActive = False
         self.on_setScreenSize()
         pygame.mouse.set_visible(False)
-        self.GIFmode = GIFMode()
-
 
 
         #modes = pygame.display.list_modes()
-        #self.gif =  GIFImage("img/pyramids gifs/weird/colors.gif")
+        #self.gif =  GIFImage("img/pyramids gifs/weird/boxy.gif")
         #self.gif.scale_image(modes[0])
 
     def on_event(self, event):
@@ -68,21 +72,13 @@ class App:
             self.running = False
 
     def on_loop(self):
-        self.cat_pos_x += 4
-        self.cat_pos_y += 1
+        self.GIFmode.run()
 
     def on_render(self):
-        self.GIFmode.run()
         pygame.display.flip()
-        #self.gif.render(self.screen, (0, 0))
-        #self.gif2.render(self.screen, (250, 250))
-        #self.screen.blit(self.get_image('img/lifted.png'), (0, 0) )
-        #self.screen.blit(self.get_image('img/pyramids gifs/flowers/1.gif'), (self.cat_pos_x,self.cat_pos_y) )
-        #self.screen.blit(self.get_image('img/cat2.jpg'), (self.cat_pos_x+ 200,self.cat_pos_y-200 ) )
+        #self.gif.render(self.screen,(0,0))
 
-        #color = self.screen.get_at( (200,200) )
 
-        #print(color)
 
     def on_cleanup(self):
         pygame.quit()

@@ -5,14 +5,29 @@ import pygame
 from pygame.locals import *
 
 import time
+#from Queue import Queue
+#from threading import Thread
+
 
 class GIFImage(object):
     def __init__(self, filename):
+        self.frameLimit = 8
         self.loaded = False
         self.filename = filename
         self.image = Image.open(filename)
         self.frames = []
         self.get_frames()
+
+
+        #self.q = Queue()
+        #self.t = Thread(target=self.get_frames)
+        #self.t.daemon = True
+        #self.t.start()
+
+        #while self.q.full():
+            #self.q.get()
+
+        #self.t.join(self)
 
         self.cur = 0
         self.ptime = time.time()
@@ -33,7 +48,6 @@ class GIFImage(object):
 
     def get_frames(self):
         image = self.image
-
         pal = image.getpalette()
         base_palette = []
         for i in range(0, len(pal), 3):
@@ -52,14 +66,16 @@ class GIFImage(object):
             image.seek(0)
 
         all_tiles = tuple(set(all_tiles))
-
+        count = 0
         try:
-            while 1:
+            while count < self.frameLimit:
                 try:
                     duration = image.info["duration"]
+                    #if duration > 50:
+                        #duration = 50
                 except:
                     duration = 100
-
+                count += 1
                 duration *= .001 #convert to milliseconds!
                 cons = False
 
