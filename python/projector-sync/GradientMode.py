@@ -20,7 +20,7 @@ class GradientMode:
 
 
     def run(self):
-        if self.surface is not None:
+        if self.surface is not None and self.isActive is True:
             mod = 0
             self.grad2Alpha += self.way
             if self.grad2Alpha > 255:

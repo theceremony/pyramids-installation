@@ -11,7 +11,7 @@
   "additional_builtins": [], 
   "programParams": "", 
   "indentation": 4, 
-  "PYTHONPATH": "", 
+  "PYTHONPATH": "sudo python", 
   "supported-extensions": [
     ".py", 
     ".html", 
